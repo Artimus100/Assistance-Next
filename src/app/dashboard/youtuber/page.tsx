@@ -51,6 +51,7 @@ export default function YouTuberDashboard() {
               ))}
             </ul>
           ) : (
+            // eslint-disable-next-line react/no-unescaped-entities
             <p>You haven't created any workspaces yet.</p>
           )}
         </div>
