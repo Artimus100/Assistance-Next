@@ -8,20 +8,39 @@ import { Label } from '@/components/ui/label'
 
 export default function Login() {
   const router = useRouter()
-const searchParams = useSearchParams()
-const role = searchParams.get('role') || ''
+  const searchParams = useSearchParams()
+  const role = searchParams.get('role') || ''
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically handle authentication
-    // For now, we'll just redirect to the appropriate dashboard
-    if (role === 'youtuber') {
-      router.push('/dashboard/youtuber')
+
+    // Call the API for authentication
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: email,
+        password: password,
+      }),
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      // On success, redirect to the appropriate dashboard
+      if (role === 'youtuber') {
+        router.push('/dashboard/youtuber')
+      } else {
+        router.push('/dashboard/editor')
+      }
     } else {
-      router.push('/dashboard/editor')
+      // Display the error message if login fails
+      setErrorMessage(data.error || 'Something went wrong.')
     }
   }
 
@@ -31,6 +50,7 @@ const role = searchParams.get('role') || ''
         <h1 className="text-2xl font-bold mb-6 text-center text-black">
           Log in as {role === 'youtuber' ? 'YouTube Creator' : 'Editor'}
         </h1>
+        {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
         <div className="space-y-2 text-gray-600">
           <Label htmlFor="email">Email</Label>
           <Input
@@ -53,11 +73,10 @@ const role = searchParams.get('role') || ''
             required
           />
         </div>
-        <Button  type="submit" className="w-full text-white" variant="outline">
+        <Button type="submit" className="w-full text-white" variant="outline">
           Log In
         </Button>
       </form>
     </div>
   )
 }
-

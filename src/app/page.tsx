@@ -9,10 +9,10 @@ export default function Home() {
       <p className="text-xl mb-8 text-gray-600">Choose your role to get started:</p>
       <div className="space-x-4">
         <Button asChild variant="outline" className="mr-2">
-          <Link href="/login?role=youtuber">I'm a YouTube Creator</Link>
+          <Link href="/register?role=youtuber">I'm a YouTube Creator</Link>
         </Button>
         <Button asChild variant="outline">
-          <Link href="/login?role=editor">I'm an Editor</Link>
+          <Link href="/register?role=editor">I'm an Editor</Link>
         </Button>
       </div>
     </div>
