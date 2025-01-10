@@ -8,10 +8,11 @@ import { Label } from '@/components/ui/label'
 
 export default function Login() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const role = searchParams.get('role')
+const searchParams = useSearchParams()
+const role = searchParams.get('role') || ''
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
