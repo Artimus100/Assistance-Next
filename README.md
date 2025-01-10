@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Assistance
 
-## Getting Started
+**Assistance** is a collaborative platform designed for YouTubers and Editors to streamline the video editing and publishing workflow. The platform allows YouTubers to create workspaces, where Editors can upload videos, and YouTubers can review, approve, or reject them. Once approved, the video can be uploaded directly to YouTube via the YouTube API.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### For YouTubers:
+- **Workspace Management**: Create and manage multiple workspaces for collaboration.
+- **Video Review**: Stream videos uploaded by Editors directly from AWS S3 buckets.
+- **Approval Workflow**: Approve or reject videos with ease.
+- **YouTube Integration**: Automatically upload approved videos to YouTube.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### For Editors:
+- **Seamless Collaboration**: Access shared workspaces created by YouTubers.
+- **Video Uploads**: Upload videos directly to the YouTuber’s workspace (securely stored in AWS S3).
+- **Real-Time Feedback**: Work efficiently with the YouTuber’s review process.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Workflow Overview
 
-To learn more about Next.js, take a look at the following resources:
+1. **User Selection**:
+   - Users start by selecting their role: YouTuber or Editor.
+   - Redirected to the appropriate dashboard upon login.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **YouTuber Flow**:
+   - Create a new workspace or enter an existing one.
+   - Review videos uploaded by Editors.
+   - Approve or reject videos:
+     - Approved videos are uploaded to YouTube using the YouTube API.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Editor Flow**:
+   - Enter workspaces shared by YouTubers.
+   - Upload videos for review.
 
-## Deploy on Vercel
+4. **Video Management**:
+   - All uploaded videos are stored securely in AWS S3.
+   - YouTubers can stream videos for review and trigger YouTube uploads.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tech Stack
+
+- **Frontend**: Built with modern frameworks (e.g., React, TailwindCSS).
+- **Backend**: Node.js for API integration and workflow management.
+- **Cloud Storage**: AWS S3 for secure video storage.
+- **YouTube Integration**: YouTube API for video uploads.
+
+---
+
+## Setup Instructions
+
+### Prerequisites
+1. Node.js installed.
+2. AWS credentials with permissions for S3.
+3. YouTube API credentials.
+
+### Steps to Run Locally
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/assistance.git
+   cd assistance
