@@ -10,16 +10,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-        const { username, password } = req.body;
+        const { username, password, role } = req.body;
 
         const { data: editor, error } = await supabase
-            .from('editors')
+            .from(role === 'editor' ? 'editors' : 'youtubers')
             .select('*')
             .eq('username', username)
             .single();
-        if (error) throw error;
-        if (!editor) {
-            res.status(404).json({ error: 'Editor not found' });
+
+        if (error || !editor) {
+            res.status(404).json({ error: 'User not found' });
             return;
         }
 
@@ -29,10 +29,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return;
         }
 
-        const token = jwt.sign({ username: editor.username, role: 'editor' }, 'your-secret-key', { expiresIn: '1h' });
+        const token = jwt.sign(
+            { username: editor.username, role },
+            'your-secret-key',
+            { expiresIn: '1h' }
+        );
         res.status(200).json({ message: 'Login successful', editor, token });
     } catch (err) {
-        console.error('Error logging in editor:', err);
+        console.error('Error logging in:', err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }

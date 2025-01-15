@@ -1,48 +1,46 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function Login() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const role = searchParams.get('role') || ''
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const role = searchParams.get('role') || '';
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    // Call the API for authentication
-    const response = await fetch('/api/login', {
+    const response = await fetch('/api/editor/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         username: email,
-        password: password,
+        password,
+        role,
       }),
-    })
+    });
 
-    const data = await response.json()
+    const data = await response.json();
 
     if (response.ok) {
-      // On success, redirect to the appropriate dashboard
       if (role === 'youtuber') {
-        router.push('/dashboard/youtuber')
+        router.push('/dashboard/youtuber');
       } else {
-        router.push('/dashboard/editor')
+        router.push('/dashboard/editor');
       }
     } else {
-      // Display the error message if login fails
-      setErrorMessage(data.error || 'Something went wrong.')
+      setErrorMessage(data.error || 'Something went wrong.');
     }
-  }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-white">
@@ -78,5 +76,5 @@ export default function Login() {
         </Button>
       </form>
     </div>
-  )
+  );
 }
