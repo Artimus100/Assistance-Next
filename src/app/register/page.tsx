@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 function RegisterFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const role = searchParams.get('role') || '';
+  const role = searchParams ? searchParams.get('role') || '' : '';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

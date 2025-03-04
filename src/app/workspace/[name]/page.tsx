@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label'
 
 export default function Workspace() {
   const params = useParams()
-  const workspaceName = params.name
+  const workspaceName = params?.name ?? 'defaultWorkspace'
   const [videos, setVideos] = useState<string[]>([])
   const [newVideo, setNewVideo] = useState('')
 
